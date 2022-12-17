@@ -1,6 +1,8 @@
 package io.github.manrriquez.vendas.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +18,7 @@ public class ClientModel {
     @Column(length = 100)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Set<DemandModel> demands;
 
