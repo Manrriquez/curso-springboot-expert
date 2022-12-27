@@ -1,9 +1,15 @@
 package io.github.manrriquez.vendas.models;
 
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TB_PRODUCT")
 public class ProductModel {
@@ -15,28 +21,4 @@ public class ProductModel {
     private String description;
 
     private BigDecimal amount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
 }

@@ -2,12 +2,19 @@ package io.github.manrriquez.vendas.models;
 
 
 import ch.qos.logback.core.net.server.Client;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TB_DEMAND")
 public class DemandModel {
@@ -29,43 +36,4 @@ public class DemandModel {
     @OneToMany(mappedBy = "demand")
     private List<ItemDemandModel> items;
 
-    public List<ItemDemandModel> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemDemandModel> items) {
-        this.items = items;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ClientModel getClient() {
-        return client;
-    }
-
-    public void setClient(ClientModel client) {
-        this.client = client;
-    }
-
-    public LocalDate getData_demand() {
-        return data_demand;
-    }
-
-    public void setData_demand(LocalDate data_demand) {
-        this.data_demand = data_demand;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
 }

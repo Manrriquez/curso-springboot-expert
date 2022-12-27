@@ -2,11 +2,18 @@ package io.github.manrriquez.vendas.models;
 
 
 import ch.qos.logback.core.net.server.Client;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TB_ITEM_DEMAND")
 public class ItemDemandModel {
@@ -26,36 +33,4 @@ public class ItemDemandModel {
     @Column
     private Integer amount;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ProductModel getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductModel product) {
-        this.product = product;
-    }
-
-    public DemandModel getDemand() {
-        return demand;
-    }
-
-    public void setDemand(DemandModel demand) {
-        this.demand = demand;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
 }

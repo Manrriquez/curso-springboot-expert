@@ -2,11 +2,17 @@ package io.github.manrriquez.vendas.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TB_CLIENT")
 public class ClientModel {
@@ -25,38 +31,4 @@ public class ClientModel {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Set<DemandModel> demands;
 
-    public ClientModel() {}
-
-
-    public Set<DemandModel> getDemands() {
-        return demands;
-    }
-
-    public void setDemands(Set<DemandModel> demands) {
-        this.demands = demands;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 }
