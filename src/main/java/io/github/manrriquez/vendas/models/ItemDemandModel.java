@@ -31,6 +31,6 @@ public class ItemDemandModel {
     private DemandModel demand;
 
     @Column
-    private Integer amount;
+    private Long amount;
 
 }

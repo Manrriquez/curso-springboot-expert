@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -41,7 +42,7 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductModel saveProduct(@RequestBody ProductModel product) {
+    public ProductModel saveProduct(@RequestBody @Valid ProductModel product) {
 
         return productRepository.save(product);
     }
@@ -61,7 +62,7 @@ public class ProductController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateProduct(@PathVariable Long id, @RequestBody ProductModel product) {
+    public void updateProduct(@PathVariable Long id, @Valid @RequestBody ProductModel product) {
 
         productRepository.findById(id)
                 .map(productExistente -> {

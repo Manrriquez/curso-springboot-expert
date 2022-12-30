@@ -4,6 +4,8 @@ package io.github.manrriquez.vendas.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 
@@ -18,7 +20,11 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @Column
+    @NotEmpty(message = "{FIELD.DESCRIPTION.REQUIRED}")
     private String description;
 
+    @NotNull(message = "{FIELD.PRICE.REQUIRED}")
     private BigDecimal amount;
 }

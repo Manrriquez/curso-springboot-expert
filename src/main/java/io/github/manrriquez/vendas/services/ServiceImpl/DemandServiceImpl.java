@@ -1,6 +1,8 @@
 package io.github.manrriquez.vendas.services.ServiceImpl;
 
 
+import io.github.manrriquez.vendas.Enums.StatusDemand;
+import io.github.manrriquez.vendas.Exceptions.DemandNotFoundException;
 import io.github.manrriquez.vendas.Exceptions.RuleBusinessException;
 import io.github.manrriquez.vendas.Repositories.ClientRepository;
 import io.github.manrriquez.vendas.Repositories.DemandRepository;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,12 +51,31 @@ public class DemandServiceImpl implements DemandService {
         demand.setAmount(dto.getAmount());
         demand.setData_demand(LocalDate.now());
         demand.setClient(client);
+        demand.setStatus(StatusDemand.REALIZADO);
 
         List<ItemDemandModel> itemsDemand = convertItems(demand, dto.getItems());
         demandRepository.save(demand);
         itemDemandRepository.saveAll(itemsDemand);
         demand.setItems(itemsDemand);
         return demand;
+    }
+
+
+    //OBTER PEDIDO COMPLETO
+    @Override
+    public Optional<DemandModel> getFullOrder(Long id) {
+        return demandRepository.findByFetchItems(id);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Long id, StatusDemand statusDemand) {
+
+        demandRepository.findById(id)
+                .map(demand -> {
+                    demand.setStatus(statusDemand);
+                    return demandRepository.save(demand);
+                }).orElseThrow(() -> new DemandNotFoundException());
     }
 
     public List<ItemDemandModel> convertItems(DemandModel demand, List<ItemDemandDTO> items) {

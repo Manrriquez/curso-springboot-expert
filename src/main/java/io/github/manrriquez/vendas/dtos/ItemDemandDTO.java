@@ -12,5 +12,5 @@ public class ItemDemandDTO {
 
     private Long product;
 
-    private Integer amount;
+    private Long amount;
 }
