@@ -1,9 +1,10 @@
 package io.github.manrriquez.vendas.config;
 
 
+import io.github.manrriquez.vendas.services.ServiceImpl.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,19 +14,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
        return new BCryptPasswordEncoder();
     }
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
-                .withUser("user")
-                .password(passwordEncoder().encode("123"))
-                .roles("USER", "ADMIN");
+        auth.userDetailsService(userDetailsServiceImpl)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -34,15 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/api/clientes/**")
-                .hasAnyRole("USER", "ADMIN")
-
+                    .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/produtos/**")
-                .hasRole("ADMIN")
-
+                     .hasRole("ADMIN")
                 .antMatchers("/api/pedidos/**")
-                .hasAnyRole("USER", "ADMIN")
-
+                    .hasAnyRole("USER", "ADMIN")
                 .and()
-                .formLogin();
+                .httpBasic();
     }
 }
