@@ -1,7 +1,7 @@
 package io.github.manrriquez.vendas.controllers;
 
 
-import io.github.manrriquez.vendas.Enums.StatusDemand;
+import io.github.manrriquez.vendas.enums.StatusDemand;
 import io.github.manrriquez.vendas.dtos.DemandDTO;
 import io.github.manrriquez.vendas.dtos.DemandInformationsDTO;
 import io.github.manrriquez.vendas.dtos.DemandItemInformationDTO;
@@ -9,7 +9,6 @@ import io.github.manrriquez.vendas.dtos.DemandStatusUpdateDTO;
 import io.github.manrriquez.vendas.models.DemandModel;
 import io.github.manrriquez.vendas.models.ItemDemandModel;
 import io.github.manrriquez.vendas.services.DemandService;
-import io.github.manrriquez.vendas.services.ServiceImpl.DemandServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
@@ -17,8 +16,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.Id;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -40,7 +37,6 @@ public class DemandController {
 
         return demand.getId();
     }
-
     @GetMapping("{id}")
     public DemandInformationsDTO getById(@PathVariable Long id) {
 
@@ -49,7 +45,6 @@ public class DemandController {
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado."));
     }
-
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateStatus(@PathVariable Long id, @RequestBody DemandStatusUpdateDTO dto) {
@@ -57,8 +52,6 @@ public class DemandController {
         String newStatus = dto.getNewStatus();
         demandService.updateStatus(id, StatusDemand.valueOf(newStatus));
     }
-
-
     private DemandInformationsDTO converter(DemandModel demand) {
 
         return DemandInformationsDTO

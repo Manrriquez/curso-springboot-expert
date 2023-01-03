@@ -1,6 +1,7 @@
 package io.github.manrriquez.vendas.services.ServiceImpl;
 
 import io.github.manrriquez.vendas.Repositories.UserRepository;
+import io.github.manrriquez.vendas.exceptions.PasswordInvalidException;
 import io.github.manrriquez.vendas.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -29,6 +30,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.save(user);
     }
 
+
+    public UserDetails authenticated(UserModel user) {
+        UserDetails userDetails = loadUserByUsername(user.getLogin());
+
+        boolean passwordLike = encoder.matches(user.getPassword(), userDetails.getPassword());
+        if(passwordLike) {
+            return userDetails;
+        }
+        throw new PasswordInvalidException();
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

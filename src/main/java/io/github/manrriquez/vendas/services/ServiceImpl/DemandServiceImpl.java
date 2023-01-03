@@ -1,9 +1,9 @@
 package io.github.manrriquez.vendas.services.ServiceImpl;
 
 
-import io.github.manrriquez.vendas.Enums.StatusDemand;
-import io.github.manrriquez.vendas.Exceptions.DemandNotFoundException;
-import io.github.manrriquez.vendas.Exceptions.RuleBusinessException;
+import io.github.manrriquez.vendas.enums.StatusDemand;
+import io.github.manrriquez.vendas.exceptions.DemandNotFoundException;
+import io.github.manrriquez.vendas.exceptions.RuleBusinessException;
 import io.github.manrriquez.vendas.Repositories.ClientRepository;
 import io.github.manrriquez.vendas.Repositories.DemandRepository;
 import io.github.manrriquez.vendas.Repositories.ItemDemandRepository;

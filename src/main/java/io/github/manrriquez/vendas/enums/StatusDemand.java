@@ -1,4 +1,4 @@
-package io.github.manrriquez.vendas.Enums;
+package io.github.manrriquez.vendas.enums;
 
 
 

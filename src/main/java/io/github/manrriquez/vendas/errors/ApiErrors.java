@@ -1,7 +1,6 @@
-package io.github.manrriquez.vendas.Errors;
+package io.github.manrriquez.vendas.errors;
 
 
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.Arrays;

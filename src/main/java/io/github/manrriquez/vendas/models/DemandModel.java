@@ -1,8 +1,7 @@
 package io.github.manrriquez.vendas.models;
 
 
-import ch.qos.logback.core.net.server.Client;
-import io.github.manrriquez.vendas.Enums.StatusDemand;
+import io.github.manrriquez.vendas.enums.StatusDemand;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package io.github.manrriquez.vendas.Exceptions;
+package io.github.manrriquez.vendas.exceptions;
 
 
 

@@ -1,7 +1,7 @@
 package io.github.manrriquez.vendas.services;
 
 
-import io.github.manrriquez.vendas.Enums.StatusDemand;
+import io.github.manrriquez.vendas.enums.StatusDemand;
 import io.github.manrriquez.vendas.dtos.DemandDTO;
 import io.github.manrriquez.vendas.models.DemandModel;
 

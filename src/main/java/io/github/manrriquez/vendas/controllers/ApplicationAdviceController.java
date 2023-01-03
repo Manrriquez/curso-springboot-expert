@@ -1,12 +1,11 @@
 package io.github.manrriquez.vendas.controllers;
 
 
-import io.github.manrriquez.vendas.Errors.ApiErrors;
-import io.github.manrriquez.vendas.Exceptions.DemandNotFoundException;
-import io.github.manrriquez.vendas.Exceptions.RuleBusinessException;
+import io.github.manrriquez.vendas.errors.ApiErrors;
+import io.github.manrriquez.vendas.exceptions.DemandNotFoundException;
+import io.github.manrriquez.vendas.exceptions.RuleBusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
