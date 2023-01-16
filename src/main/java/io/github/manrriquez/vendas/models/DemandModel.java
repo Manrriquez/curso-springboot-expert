@@ -30,7 +30,7 @@ public class DemandModel {
     @Column
     private LocalDate data_demand;
 
-    @Column(name="status")
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusDemand status;
 

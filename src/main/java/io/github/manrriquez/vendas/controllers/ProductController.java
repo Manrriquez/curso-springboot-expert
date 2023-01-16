@@ -2,7 +2,6 @@ package io.github.manrriquez.vendas.controllers;
 
 
 import io.github.manrriquez.vendas.Repositories.ProductRepository;
-import io.github.manrriquez.vendas.models.ClientModel;
 import io.github.manrriquez.vendas.models.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

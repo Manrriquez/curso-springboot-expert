@@ -7,13 +7,9 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Service
@@ -26,45 +22,35 @@ public class JwtService {
     @Value("${security.jwt.key-signature}")
     private String keySignature;
 
-    public String generatedToken(UserModel user) {
-        long expString = Long.valueOf(expiration);
-        LocalDateTime dateHourExpiration = LocalDateTime.now().plusMinutes(expString);
-        Instant instant = dateHourExpiration.atZone(ZoneId.systemDefault()).toInstant();
 
-        Date date = Date.from(instant);
-
-        return Jwts.builder()
-                .setSubject(user.getLogin())
-                .setExpiration(date)
+    public String gerarToken(UserModel usuario) {
+        long expString = Long.parseLong(expiration);
+        return Jwts
+                .builder()
+                .setSubject(usuario.getLogin())
+                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(expString).toInstant()))
                 .signWith(SignatureAlgorithm.HS512, keySignature)
                 .compact();
     }
 
-    public Claims getClaims(String token) throws ExpiredJwtException {
-
+    private Claims obterClaims(String token) throws ExpiredJwtException {
         return Jwts
                 .parser()
                 .setSigningKey(keySignature)
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
-    public boolean tokenValid(String token) {
-
-        try{
-            Claims claims = getClaims(token);
-            Date dateExpiration = claims.getExpiration();
-            LocalDateTime localDateTime = dateExpiration.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-            return !LocalDateTime.now().isAfter(localDateTime);
-        } catch (Exception e) {
+    public Boolean tokenValido(String token) {
+        try {
+            obterClaims(token);
+            return true;
+        } catch (ExpiredJwtException e) {
             return false;
         }
     }
 
-    public String getLoginUser(String token) throws ExpiredJwtException {
-
-        return (String) getClaims(token).getSubject();
+    public String obterLoginUsuario(String token) throws ExpiredJwtException {
+        return obterClaims(token).getSubject();
     }
-
 }

@@ -1,15 +1,15 @@
 package io.github.manrriquez.vendas.services.ServiceImpl;
 
 
-import io.github.manrriquez.vendas.enums.StatusDemand;
-import io.github.manrriquez.vendas.exceptions.DemandNotFoundException;
-import io.github.manrriquez.vendas.exceptions.RuleBusinessException;
 import io.github.manrriquez.vendas.Repositories.ClientRepository;
 import io.github.manrriquez.vendas.Repositories.DemandRepository;
 import io.github.manrriquez.vendas.Repositories.ItemDemandRepository;
 import io.github.manrriquez.vendas.Repositories.ProductRepository;
 import io.github.manrriquez.vendas.dtos.DemandDTO;
 import io.github.manrriquez.vendas.dtos.ItemDemandDTO;
+import io.github.manrriquez.vendas.enums.StatusDemand;
+import io.github.manrriquez.vendas.exceptions.DemandNotFoundException;
+import io.github.manrriquez.vendas.exceptions.RuleBusinessException;
 import io.github.manrriquez.vendas.models.ClientModel;
 import io.github.manrriquez.vendas.models.DemandModel;
 import io.github.manrriquez.vendas.models.ItemDemandModel;
@@ -45,7 +45,7 @@ public class DemandServiceImpl implements DemandService {
     @Transactional
     public DemandModel save(DemandDTO dto) {
         Long idClient = dto.getClient();
-        ClientModel client =  clientRepository.findById(idClient)
+        ClientModel client = clientRepository.findById(idClient)
                 .orElseThrow(() -> new RuleBusinessException("Codigo de cliente inválido!"));
         DemandModel demand = new DemandModel();
         demand.setAmount(dto.getAmount());
@@ -80,13 +80,13 @@ public class DemandServiceImpl implements DemandService {
 
     public List<ItemDemandModel> convertItems(DemandModel demand, List<ItemDemandDTO> items) {
 
-        if(items.isEmpty()) {
+        if (items.isEmpty()) {
             throw new RuleBusinessException("Não e possivel realizar pedido sem items.");
         }
 
         return items
                 .stream()
-                .map( dto -> {
+                .map(dto -> {
                     Long idProduct = dto.getProduct();
                     ProductModel product = productRepository
                             .findById(idProduct)

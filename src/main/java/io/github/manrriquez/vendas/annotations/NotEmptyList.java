@@ -18,5 +18,6 @@ public @interface NotEmptyList {
     String message() default "A lista não pode ser nulo.";
 
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }
